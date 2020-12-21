@@ -7,7 +7,7 @@ if [ ! -z "$TRAVIS_BUILD_DIR" ]; then
 	export GITHUB_REPOSITORY="$TRAVIS_REPO_SLUG"
 elif [ -z "$GITHUB_WORKSPACE" ]; then
 	export GITHUB_WORKSPACE="$PWD"
-	export GITHUB_REPOSITORY="me-no-dev/ESPAsyncWebServer"
+	export GITHUB_REPOSITORY="95-CommonCANguru"
 fi
 
 TARGET_PLATFORM="$1"
@@ -30,8 +30,8 @@ if [ "$BUILD_PIO" -eq 0 ]; then
 	# ArduinoIDE Test
 	source ./.github/scripts/install-arduino-ide.sh
 
-	echo "Installing ESPAsyncWebServer ..."
-	cp -rf "$GITHUB_WORKSPACE" "$ARDUINO_USR_PATH/libraries/ESPAsyncWebServer"
+	echo "Installing CommonCANguru ..."
+	cp -rf "$GITHUB_WORKSPACE" "$ARDUINO_USR_PATH/libraries/CommonCANguru"
 	echo "Installing ArduinoJson ..."
 	git clone https://github.com/bblanchon/ArduinoJson "$ARDUINO_USR_PATH/libraries/ArduinoJson" > /dev/null 2>&1
 
@@ -42,8 +42,8 @@ if [ "$BUILD_PIO" -eq 0 ]; then
 		source ./.github/scripts/install-arduino-core-esp32.sh
 		echo "BUILDING ESP32 EXAMPLES"
 	else
-		echo "Installing ESPAsyncTCP ..."
-		git clone https://github.com/me-no-dev/ESPAsyncTCP "$ARDUINO_USR_PATH/libraries/ESPAsyncTCP" > /dev/null 2>&1
+		echo "Installing CommonCANguru ..."
+		git clone https://github.com/CANguru-System/95-CommonCANguru "$ARDUINO_USR_PATH/libraries/ESPAsyncTCP" > /dev/null 2>&1
 		FQBN="esp8266com:esp8266:generic:eesz=4M1M,ip=lm2f"
 		source ./.github/scripts/install-arduino-core-esp8266.sh
 		echo "BUILDING ESP8266 EXAMPLES"
@@ -58,13 +58,13 @@ else
 	python -m platformio lib -g install https://github.com/bblanchon/ArduinoJson.git > /dev/null 2>&1
 	if [[ "$TARGET_PLATFORM" == "esp32" ]]; then
 		BOARD="esp32dev"
-		echo "Installing AsyncTCP ..."
-		python -m platformio lib -g install https://github.com/me-no-dev/AsyncTCP.git > /dev/null 2>&1
+		echo "Installing CommonCANguru ..."
+		python -m platformio lib -g install https://github.com/CANguru-System/95-CommonCANguru.git > /dev/null 2>&1
 		echo "BUILDING ESP32 EXAMPLES"
 	else
 		BOARD="esp12e"
 		echo "Installing ESPAsyncTCP ..."
-		python -m platformio lib -g install https://github.com/me-no-dev/ESPAsyncTCP.git > /dev/null 2>&1
+		python -m platformio lib -g install https://github.com/CANguru-System/95-CommonCANguru.git > /dev/null 2>&1
 		echo "BUILDING ESP8266 EXAMPLES"
 	fi
 	build_pio_sketches "$BOARD" "$GITHUB_WORKSPACE/examples"
